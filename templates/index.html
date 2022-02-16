@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  </head>
+  <body>
+   
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Covid-19 Gov. Policy Checker</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/#">Home</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li> -->
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+<section class = "py-5 text-center" style = "background: url(./static/simple.jpg) no-repeat center">
+<div class="position-relative overflow-hidden pb-3 p-md-5 m-md-3 text-center">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+      <!-- <h1 class="display-4 fw-normal">Covid-19 Gov. Policy Checker</h1> -->
+    <h1 class="fw-light">Covid-19 Gov. Policy Checker</h1>
+      <!-- <p class="lead fw-normal">Tell me your destination! we show you its latest gov. policy</p> -->
+     <!-- <a class="btn btn-outline-secondary" href="#">Coming soon</a> -->
+    </div>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+  </div>
+  </section>
+   <main class="flex-shrink-0">
+  <div class="container">
+    <!-- <div class = "col-md-10"> -->
+    <label for="country d-flex justify-content-center" class="form-label p-2">Country</label>
+    <form action="/query" method="POST" id="form">
+    <select class="col-md-2 form-select p-2 d-flex justify-content-center" id="country" name="country" required="">
+     <option value="none" selected disabled hidden>Country Name</option>
+      {% for item in countries %}
+      <option value={{ item }}>{{item}}</option>
+      {% endfor %}
+    </select>
+     <button class="col-md-2 form-control mt-1 d-flex justify-content-center" id="button">Get info</button>
+    <!-- </div> -->
+     </form>
+     <p id="countdown"></p>
+    <!-- <p class="lead"></p> -->
+    <!-- <p>Back to <a href="/docs/5.1/examples/sticky-footer/">the default sticky footer</a> minus the navbar.</p> -->
+  </div>
+</main>
+ </body>
+ <script>
+    $('#button').click( function(event) {
+        event.preventDefault();
+        $.post("/query", $('#form').serialize(), function(data) {
+            //alert(data);
+            countdown = $("#countdown");
+            countdown.append(data + "<br/>");
+        });
+    });
+</script>
+</html>
