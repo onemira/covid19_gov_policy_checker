@@ -27,7 +27,6 @@
 <section class = "py-5 text-center" style = "background: url(./static/simple.jpg) no-repeat center">
 <div class="position-relative overflow-hidden pb-3 p-md-5 m-md-3 text-center">
     <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <!-- <h1 class="display-4 fw-normal">Covid-19 Gov. Policy Checker</h1> -->
     <h1 class="fw-light">Covid-19 Gov. Policy Checker</h1>
       <!-- <p class="lead fw-normal">Tell me your destination! we show you its latest gov. policy</p> -->
      <!-- <a class="btn btn-outline-secondary" href="#">Coming soon</a> -->
@@ -43,6 +42,31 @@
     <p>last update: {{date}}</p>
 <ol class="list-group list-group-numbered mx-auto pb-4">
   <li class="list-group-item active" aria-current="true">{{ travel_status }} </li>
+ 
+   <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">School closing:</div>
+     {{ c1 }} 
+    </div>
+  </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Workplace closing:</div>
+     {{ c2 }} 
+    </div>
+  </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Stay at home requirements:</div>
+     {{ c6 }} 
+    </div>
+  </li>
+      <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Restrictions on internal movement:</div>
+     {{ c7 }} 
+    </div>
+  </li> -->
   <li class="list-group-item d-flex justify-content-between align-items-start">
     <div class="ms-2 me-auto">
       <div class="fw-bold">Public information campaigns: </div>

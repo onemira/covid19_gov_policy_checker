@@ -50,7 +50,32 @@ def index():
     return render_template("index.html", countries=countries)
 
 
-# index()
+def get_c1(C1):
+    if C1 == 0:
+        return "no measures"
+    elif C1 == 1:
+        return 'recommend closing or all schools open with alterations resulting in significant differences compared to non-Covid-19 operations'
+    elif C1 == 2:
+        return 'require closing (only some levels or categories, eg just high school, or just public schools)'
+    elif C1 == 3:
+        return 'require closing all levels'
+    else:
+        return 'no data'
+
+
+def get_c2(C2):
+    if C2 == 0:
+        return "no measures"
+    elif C2 == 1:
+        return ' recommend closing (or recommend work from home) or all businesses open with alterations resulting in significant differences compared to non-Covid-19 operation'
+    elif C2 == 2:
+        return 'require closing (or work from home) for some sectors or categories of workers'
+    elif C2 == 3:
+        return 'require closing (or work from home) for all-but-essential workplaces (eg grocery stores, doctors)'
+    else:
+        return 'no data'
+
+
 def get_c3(C3):
     if C3 == 0:
         return "no measures"
@@ -84,6 +109,19 @@ def get_c5(C5):
         return 'recommend closing (or significantly reduce volume/route/means of transport available)'
     elif C5 == 2:
         return 'require closing (or prohibit most citizens from using it)'
+    else:
+        return 'no data'
+
+
+def get_c6(C6):
+    if C6 == 0:
+        return "no measures"
+    elif C6 == 1:
+        return 'recommend not leaving house'
+    elif C6 == 2:
+        return "require not leaving house with exceptions for daily exercise, grocery shopping, and 'essential' trips"
+    elif C6 == 3:
+        return 'require not leaving house with minimal exceptions (eg allowed to leave once a week, or only one person can leave at a time, etc))'
     else:
         return 'no data'
 
@@ -134,16 +172,22 @@ def get_index(index):
 
 @bp.route('/query', methods=['POST'])
 def country_select_query():
+    # with bp.test_request_context('/'), bp.test_client() as c:
+    #rv = c.post('/')
+    from flask import request
     selected_country = request.form['country']
     row = df[df["CountryName"] == selected_country]
-    print(row)
+
+    c1 = get_c2(row['C1_School closing'].item())
+    c2 = get_c2(row['C2_Workplace closing'].item())
     c3 = get_c3(row['C3_Cancel public events'].item())
     c4 = get_c4(row['C4_Restrictions on gatherings'].item())
     c5 = get_c5(row['C5_Close public transport'].item())
-    # c7 = get_c7(row['C7_Restrictions on internal movements'].item())
+    c6 = get_c6(row['C6_Stay at home requirements'].item())
+    #c7 = get_c7(row['C7_Restrictions on internal movements'].item())
     c8 = get_c8(row['C8_International travel controls'].item())
     h1 = get_h1(row['H1_Public information campaigns'].item())
     travel_status = get_index(row['StringencyIndexForDisplay'].item())
     date = row['Date'].item()
 
-    return render_template("country_info.html", country=selected_country, c3=c3, c4=c4, c5=c5, c8=c8, h1=h1, travel_status=travel_status, date=date)
+    return render_template("country_info.html", country=selected_country, c1=c1, c2=c2, c3=c3, c4=c4, c5=c5, c6=c6,  c8=c8,  h1=h1, travel_status=travel_status, date=date)
