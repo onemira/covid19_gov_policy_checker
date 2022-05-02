@@ -2,118 +2,128 @@
 <html>
   <head>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"></script>
   </head>
   <body>
-   
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Covid-19 Gov. Policy Checker</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-      </ul>
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">AI Travel Helper</a>
+        <button class="navbar-toggler" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse"
+          id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page"
+                href="/">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--  jumbotron-->
+    <section class="py-5 text-center" style="background:
+      url(./static/simple.jpg) no-repeat center">
+      <div class="position-relative overflow-hidden
+        text-center">
+        <div class="col-md-12 p-lg-5 mx-auto my-3">
+          <h1 class="display-4 fw-light">AI Travel Helper</h1>
+          <blockquote class="blockquote">
+            <p class="lead fw-normal">Tell me your destination! Our
+              AI provides you a-z travel info based on its gov. guideline</p>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+    <!-- travel info details -->
+    <main class="flex-shrink-0">
+      <div class="container pb-5">
+        <div class="col-md-10 pb-5">
+          <h3 class="pt-3">{{ country }} </h3>
+          <p class="text-primary">last updated: {{date}}</p>
+          <!-- travel status -->
+          <ol class="list-group list-group-numbered mx-auto pb-4">
+            {% if index <=25 %}
+            <li class="list-group-item active" aria-current="true">{{
+              travel_status }} </li>
+            {% elif index <=50 %}
+            <li class="list-group-item bg-warning"
+              aria-current="true">{{
+              travel_status }} </li>
+            {% else %}
+            <li class="list-group-item bg-danger text-white"
+              aria-current="true">{{
+              travel_status }}
+            </li>
+            {% endif %}
+            <!-- accordion -->
+            <div class="accordion" id="accordionExample">
+              {% for column_value, column_note, column_name,
+              column_code in
+              data_set %}
+              <div class="accordion-item">
+                <h2 class="accordion-header"
+                  id="{{column_name}}">
+                  <button class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#{{column_code}}"
+                    aria-expanded="false"
+                    aria-controls="{{column_code}}">
+                    <div class="container">
+                      <div class="row align-items-start
+                        fw-bold pb-1">{{column_name}}:
+                        &nbsp;</div>
+                      <div class="row align-items-start
+                        text-start">{{
+                        column_value }}</div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="{{column_code}}"
+                  class="accordion-collapse
+                  collapse"
+                  aria-labelledby="{{column_name}}"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body text-break">
+                    {{column_note}}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </ol>
+        </div>
+      </div>
+    </main>
+    <div class="navbar fixed-bottom navbar-light bg-light
+      justify-content-center">
+      <p class="text-center"><small>© 2022 AI Travel Helper</small>
+        <a
+          href="https://github.com/onemira/covid19_gov_policy_checker"><img
+            src="../static/Github.png" /></a>
+        <a href="mailto: mirabulgogi@gmail.com"><img
+            src="../static/email.svg"
+            width="25" height="30" /></a>
+      </p>
     </div>
-  </div>
-</nav>
-<section class = "py-5 text-center" style = "background: url(./static/simple.jpg) no-repeat center">
-<div class="position-relative overflow-hidden pb-3 p-md-5 m-md-3 text-center">
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-    <h1 class="fw-light">Covid-19 Gov. Policy Checker</h1>
-      <!-- <p class="lead fw-normal">Tell me your destination! we show you its latest gov. policy</p> -->
-     <!-- <a class="btn btn-outline-secondary" href="#">Coming soon</a> -->
-    </div>
-    <div class="product-device shadow-sm d-none d-md-block"></div>
-    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-  </div>
-  </section>
-   <main class="flex-shrink-0">
-  <div class="container">
-    <div class = "col-md-10">
-    <h3 class="pt-3">{{ country }}  </h3>
-    <p>last update: {{date}}</p>
-<ol class="list-group list-group-numbered mx-auto pb-4">
-  <li class="list-group-item active" aria-current="true">{{ travel_status }} </li>
- 
-   <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">School closing:</div>
-     {{ c1 }} 
-    </div>
-  </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Workplace closing:</div>
-     {{ c2 }} 
-    </div>
-  </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Stay at home requirements:</div>
-     {{ c6 }} 
-    </div>
-  </li>
-      <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Restrictions on internal movement:</div>
-     {{ c7 }} 
-    </div>
-  </li> -->
-  <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Public information campaigns: </div>
-      {{ h1 }}
-    </div>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Public events:</div>
-     {{ c3 }} 
-    </div>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Restrictions on gatherings:</div>
-      {{ c4 }}
-    </div>
-  </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Close public transport:</div>
-      {{ c5 }}
-    </div>
-  </li>
-      <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">International travel controls:</div>
-      {{ c8 }}
-    </div>
-  </li>
-</ol>
-    <!-- <form action="/query" method="POST" id="form">
-    <select class="form-select p-2" id="country" name="country" required="">
-      {% for item in countries %}
-      <option value={{ item }} selected>{{item}}</option>
-      {% endfor %}
-    </select>
-    </div>
-     <button class="col-md-3 form-control" id="button">Get info</button>
-     </form> -->
-     <p id="countdown"></p>
-    <!-- <p class="lead"></p> -->
-    <!-- <p>Back to <a href="/docs/5.1/examples/sticky-footer/">the default sticky footer</a> minus the navbar.</p> -->
-  </div>
-</main>
- </body>
- <script>
+  </body>
+  <script>
     $('#button').click( function(event) {
         event.preventDefault();
         $.post("/query", $('#form').serialize(), function(data) {
@@ -122,5 +132,5 @@
             countdown.append(data + "<br/>");
         });
     });
-</script>
+  </script>
 </html>
